@@ -1,0 +1,71 @@
+# Docker Compose para deployment completo
+# API FastAPI + Dashboard Streamlit
+
+services:
+  # Serviço da API FastAPI
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: api
+    container_name: lstm-stock-api
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+    volumes:
+      # Persistir dados, modelos e logs
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - lstm-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Serviço do Dashboard Streamlit
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: streamlit
+    container_name: lstm-stock-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - PYTHONUNBUFFERED=1
+      # Comunicação interna entre containers Docker
+      # Para rodar SEM Docker: API_BASE_URL=http://localhost:8000 python app_portfolio.py
+      - API_BASE_URL=${API_BASE_URL:-http://api:8000}
+    volumes:
+      # Compartilhar dados com API
+      - ./data:/app/data:ro
+      - ./models:/app/models:ro
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - lstm-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  lstm-network:
+    driver: bridge
+
+# Volumes opcionais para persistência em produção
+# volumes:
+#   data-volume:
+#   models-volume:
+#   logs-volume:

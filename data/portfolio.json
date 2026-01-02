@@ -1,0 +1,41 @@
+{
+  "stocks": {
+    "BBAS3.SA": {
+      "symbol": "BBAS3.SA",
+      "name": "BB",
+      "description": 0.0,
+      "period": 0.0,
+      "added_at": "2026-01-02T05:08:15.382233",
+      "status": "trained",
+      "model_path": "models/BBAS3.SA_model.keras",
+      "last_trained": "2026-01-02T05:57:36.863692",
+      "metrics": {
+        "MAE": 0.856847349802653,
+        "RMSE": 1.0947022780800595,
+        "MSE": 1.1983730776336718,
+        "R2": 0.7953090080913373,
+        "MAPE": 3.704180781515026
+      },
+      "training_status": "completed",
+      "updated_at": "2026-01-02T05:58:03.960823",
+      "training_started": "2026-01-02T05:56:31.675419",
+      "scaler_path": "models/BBAS3.SA_scaler.pkl",
+      "target_scaler_path": "models/BBAS3.SA_target_scaler.pkl",
+      "sequence_length": 30,
+      "n_features": 57,
+      "last_prediction": {
+        "predictions": [
+          20.140335083007812,
+          20.195920944213867,
+          20.232707977294922,
+          20.256776809692383,
+          20.271896362304688
+        ],
+        "confidence": 0.698959948037523,
+        "predicted_at": "2026-01-02T05:58:03.960816"
+      }
+    }
+  },
+  "created_at": "2026-01-01T18:13:24.427532",
+  "updated_at": "2026-01-02T05:58:03.960826"
+}
