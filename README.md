@@ -4,6 +4,12 @@
 
 ---
 
+## 🌐 Acesso à Aplicação
+
+**A aplicação está disponível em: https://fiap-fase5.rmnegocios.com**
+
+---
+
 ## 📋 Resumo do Projeto
 
 Este projeto implementa um sistema completo de previsão de preços de ações da bolsa de valores brasileira (B3) utilizando redes neurais LSTM (Long Short-Term Memory), seguindo as melhores práticas de MLOps para deploy, monitoramento e manutenção de modelos em produção.
